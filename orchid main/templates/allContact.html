@@ -1,0 +1,34 @@
+{% include "header.html" %}
+<table class="table container">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Number</th>
+      <th scope="col">Description</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in contact %}
+    <tr>
+      <th scope="row">{{a.id}}</th>
+      <td>{{a.first_name}}</td>
+      <td>{{a.last_name}}</td>
+      <td>{{a.email}}</td>
+      <td>{{a.number}}</td>
+      <td>{{a.description}}</td>
+      <td>
+        <a href={% url "updateContact" pk=a.id %} class="btn btn-primary">Update</a>
+        <form method="POST" action={%  url "deleteContact" pk=a.id %} >
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% include "footer.html" %}
