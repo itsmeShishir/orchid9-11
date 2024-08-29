@@ -1,21 +1,29 @@
 import {useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddCategory = () => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [img, setImg] = useState(null);
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("img", img);
         try{
-            await axios.post("http://127.0.0.1:8000/allCategory",{
-                title : title,
-                description :description,
-                img: img[0]
-            });
+            await axios.post("http://127.0.0.1:8000/allCategory", 
+            formData,{  headers: {
+        "Content-Type": "multipart/form-data",
+      }});
+      toast("Category add successfully");
+      navigate('/allCategory')
         }catch(e){
-            console.log(e.message);
+            toast(e.message);
         }
     }
   return (
@@ -35,8 +43,9 @@ const AddCategory = () => {
         <div>
             <label htmlFor="img">img</label>
             <input type="file" placeholder="upload image" 
-            name="img" value={img} onChange={(e)=> setImg(e.target.value)}/>
+            name="img"  onChange={(e)=> setImg(e.target.files[0])}/>
         </div>
+        
         <button type="submit">Add Category</button>
       </form>
     </div>

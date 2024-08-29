@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/mac/Desktop/orchid main/env/bin/python3.12" "$0" "$@"
+'''exec' "/Users/mac/Desktop/orchidprojects/orchid main/env/bin/python3.12" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

@@ -7,3 +7,8 @@ from .serializer import *
 class Category(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = categorySerializer
+
+class UpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = categorySerializer
+
