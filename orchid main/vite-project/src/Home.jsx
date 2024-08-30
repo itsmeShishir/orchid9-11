@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from "axios";
+import { Link } from 'react-router-dom';
 const Home = () => {
   const [data, setData] = useState([]);
   useEffect(()=>{
@@ -16,14 +17,18 @@ const Home = () => {
 
   return (
     <div>
+    <Link to="/allCategory" 
+    className='px-6 py-4 bg-red-500 
+    text-white'
+    >All Category</Link>
      {
       data.map((items) => 
          <>
-          <div key={items.id}>
+          <Link to={`/updateCategory/${items.id}`} key={items.id}>
             <h1>{items.title}</h1>
             <p>{items.description}</p>
             <img src={items.img} alt={items.title} />
-          </div>
+          </Link>
         </>
       )
      }

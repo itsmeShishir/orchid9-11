@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from "axios";
 import { CiEdit, CiTrash } from "react-icons/ci";
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AllCategory = () => {
   const [data, setData] = useState([]);
@@ -17,6 +18,15 @@ const AllCategory = () => {
       fetchData();
   },[]);
 
+  const handleDelete = async(id) =>{
+    try{
+        await axios.delete(`http://127.0.0.1:8000/udCategory/${id}`)
+        setData(data.filter((items)=> items.id !== id))
+        toast("Successfully Deleted")
+    }catch(e){
+        toast(`error occur ${e}`)
+    }
+  }
   return (
     <>
      
@@ -54,8 +64,8 @@ const AllCategory = () => {
                     <img src={items.img} alt="" className='w-[100px] h-auto'/>
                 </td>
                 <td className="px-6 py-4 w-3">
-                    <div className='rounded-xl px-3 py-2 text-xl bg-yellow-600 text-white'><CiEdit  /></div>
-                    <div className='rounded-xl px-3 py-2 text-xl bg-red-600 text-white'><CiTrash  /></div>
+                    <div className='rounded-xl px-3 py-2 text-xl bg-yellow-600 text-white'><CiEdit /></div>
+                    <div className='rounded-xl px-3 py-2 text-xl bg-red-600 text-white' onClick={()=> handleDelete(items.id)}><CiTrash /></div>
                 </td>
             </tr>
                 )
